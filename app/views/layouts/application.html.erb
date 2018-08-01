@@ -6,7 +6,12 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'https://js.stripe.com/v3/',  'data-turbolinks-track': 'reload' %>
+    <% if Rails.env.production? %>
+     <%= tag :meta, name: "stripe-public-key", content: Rails.application.credentials.production[:stripe_publishable_key] %>
+    <% else %>
+    <%= tag :meta, name: "stripe-public-key", content: Rails.application.credentials.development[:stripe_publishable_key] %>
+    <% end %>
   </head>
 
   <body>
