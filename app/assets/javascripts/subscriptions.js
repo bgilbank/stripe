@@ -54,6 +54,22 @@ function stripeTokenHandler(token) {
   hiddenInput.setAttribute('value', token.id);
   form.appendChild(hiddenInput);
 
+  ["brand", "exp_month", "exp_year", "last4"].forEach(function(field) {
+    addFieldToForm(form, token, field);
+  });
+  
+  console.log(token);
+
   // Submit the form
-  // form.submit();
+  form.submit();
+}
+
+// Adding a custom field, that matches the database devise fields we created.
+function addFieldToForm(form, token, field) {
+  var hiddenInput = document.createElement('input');
+  hiddenInput.setAttribute('type', 'hidden');
+  hiddenInput.setAttribute('name', "card_" + field);
+  // You may need to add user eg: hiddenInput.setAttribute('name', "user[card_" + field + "]");
+  hiddenInput.setAttribute('value', token.card[field]);
+  form.appendChild(hiddenInput);
 }
