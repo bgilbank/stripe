@@ -42,6 +42,7 @@
 <p>You are currently subscribed 
 <div><strong>Card on file:</strong> <%= current_user.card_brand %> (**** **** **** <%= current_user.card_last4 %>)</div>
 <div><strong>Expiration:</strong> <%= current_user.card_exp_month %> / <%= current_user.card_exp_year %></div>
+<p><%= link_to "Update your card", subscription_path %></p>
 </p>
 </div>
 <% end %>
