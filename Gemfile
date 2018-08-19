@@ -26,6 +26,7 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'bootstrap', '~> 4.1.3'
+gem 'stripe', '~> 1.57', '>= 1.57.1'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

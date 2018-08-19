@@ -68,8 +68,8 @@ function stripeTokenHandler(token) {
 function addFieldToForm(form, token, field) {
   var hiddenInput = document.createElement('input');
   hiddenInput.setAttribute('type', 'hidden');
-  hiddenInput.setAttribute('name', "card_" + field);
-  // You may need to add user eg: hiddenInput.setAttribute('name', "user[card_" + field + "]");
+  //hiddenInput.setAttribute('name', "card_" + field);
+  hiddenInput.setAttribute('name', "user[card_" + field + "]");
   hiddenInput.setAttribute('value', token.card[field]);
   form.appendChild(hiddenInput);
 }
