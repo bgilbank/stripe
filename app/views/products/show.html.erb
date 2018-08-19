@@ -9,14 +9,17 @@
   <strong>Description:</strong>
   <%= @product.description %>
 </p>
-
+<% if user_signed_in? && current_user.subscribed? %>
 <p>
   <strong>Secret:</strong>
   <%= @product.secret %>
 </p>
-
+<% else %>
 <%= link_to "Subscribe", new_subscription_path(plan: "monthly"), class: "btn btn-primary" %>
 <%= link_to "Subscribe", new_subscription_path(plan: "yearly"), class: "btn btn-primary" %>
+<% end %>
+
+
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>
