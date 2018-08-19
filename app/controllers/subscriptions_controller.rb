@@ -14,6 +14,13 @@ class SubscriptionsController < ApplicationController
       )
 
       current_user.assign_attributes(stripe_subscription_id: subscription.id)
+      current_user.assign_attributes(
+        card_brand: params[:card_brand],
+        card_last4: params[:card_last4],
+        card_exp_month: params[:card_exp_month],
+        card_exp_year: params[:card_exp_year]
+      ) if params[:card_last4]
+
       current_user.save
 
       flash.notice = "Thanks for subscribing!"

@@ -36,6 +36,16 @@
   </div>
 <% end %>
 
+<% if current_user.subscribed? %>
+<br><h3>Billing</h3>
+<div>
+<p>You are currently subscribed 
+<div><strong>Card on file:</strong> <%= current_user.card_brand %> (**** **** **** <%= current_user.card_last4 %>)</div>
+<div><strong>Expiration:</strong> <%= current_user.card_exp_month %> / <%= current_user.card_exp_year %></div>
+</p>
+</div>
+<% end %>
+
 <h3>Cancel my account</h3>
 
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
