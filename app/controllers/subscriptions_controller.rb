@@ -6,17 +6,23 @@ class SubscriptionsController < ApplicationController
 
   def create
     customer = current_user.stripe_customer
-    subscription = customer.subscriptions.create(
-      source: params[:stripeToken],
-      plan: params[:plan],
-    )
 
-    current_user.assign_attributes(stripe_subscription_id: subscription.id)
-    current_user.save
+    begin
+      subscription = customer.subscriptions.create(
+        source: params[:stripeToken],
+        plan: params[:plan],
+      )
 
-    flash.notice = "Thanks for subscribing!"
-    redirect_to root_path
+      current_user.assign_attributes(stripe_subscription_id: subscription.id)
+      current_user.save
+
+      flash.notice = "Thanks for subscribing!"
+      redirect_to root_path
+    rescue Stripe::CardError => e 
+      flash.alert = e.message
+      render action: :new
+    end
+   end
 
   end  
 
-end
