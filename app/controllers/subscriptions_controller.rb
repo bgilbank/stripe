@@ -58,5 +58,13 @@ class SubscriptionsController < ApplicationController
     end
    end
 
+   def destroy
+    customer = current_user.stripe_customer
+    subscription = customer.subscriptions.retrieve(current_user.stripe_subscription_id).delete
+    expires_at = Time.zone.at(subscription.current_period_end)
+    current_user.update(expires_at: expires_at, stripe_subscription_id: nil)
+    redirect_to root_path, notice: "You have cancelled your subscription. Yo will have access until #{current_user.expires_at.to_date}"
+   end
+
   end  
 
