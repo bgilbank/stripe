@@ -3,6 +3,7 @@ document.addEventListener("turbolinks:load", function() {
   var stripe = Stripe(public_key);
   var elements = stripe.elements();
 
+ 
   // Custom styling can be passed to options when creating an Element.
   var style = {
     base: {
@@ -18,6 +19,8 @@ document.addEventListener("turbolinks:load", function() {
   // Add an instance of the card Element into the `card-element` <div>.
   card.mount('#card-element');
 
+  
+
   card.addEventListener('change', function(event) {
     var displayError = document.getElementById('card-errors');
     if (event.error) {
@@ -25,6 +28,7 @@ document.addEventListener("turbolinks:load", function() {
     } else {
       displayError.textContent = '';
     }
+
   });
 
   // Create a token or display an error when the form is submitted.
@@ -43,6 +47,13 @@ document.addEventListener("turbolinks:load", function() {
       }
     });
   });
+  // Show the form when an existing user adds a new card/doesn't re-subscribe with their existing card.
+  $(".show-card-form").on("click", function(e) { // show-card-form is the url class.
+    e.preventDefault(); // Prevent a link from opening the URL:
+  
+    $("#existing-card").hide();
+    $("#payment-form").show();
+   });
 });
 
 function stripeTokenHandler(token) {
@@ -58,11 +69,12 @@ function stripeTokenHandler(token) {
     addFieldToForm(form, token, field);
   });
   
-  console.log(token);
+  console.log(token); // remove this in production.
 
   // Submit the form
   form.submit();
 }
+
 
 // Adding a custom field, that matches the database devise fields we created.
 function addFieldToForm(form, token, field) {
@@ -73,3 +85,5 @@ function addFieldToForm(form, token, field) {
   hiddenInput.setAttribute('value', token.card[field]);
   form.appendChild(hiddenInput);
 }
+
+   
