@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :charges
+
   def stripe_customer
     if stripe_id
       Stripe::Customer.retrieve(stripe_id)
