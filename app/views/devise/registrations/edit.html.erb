@@ -59,3 +59,26 @@
 <%= link_to "Back", :back %>
 
 <% end %>
+
+<% if current_user.charges.any? %>
+<h3>Charges</h3>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Download</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% current_user.charges.each do |charge| %>
+        <tr>
+          <td><%= charge.created_at.to_date %></td>
+          <td><%= number_to_currency charge.amount  %></td>
+          <td><%= link_to "Download", "#" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% end %>
